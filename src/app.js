@@ -4,9 +4,6 @@ const db = require("./db/conn");
 const multer = require("multer");
 const path = require("path");
 
-const Restaurant = require("./models/restaurant");
-const Products = require("./models/product");
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
