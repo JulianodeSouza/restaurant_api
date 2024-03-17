@@ -38,6 +38,7 @@ const upload = multer({
 
 app.use(upload.any());
 
+app.use("/public/client")
 app.use("/public/restaurant", require("./views/restaurant"));
 app.use("/public/product", require("./views/product"));
 

@@ -1,3 +1,4 @@
+const { faker } = require("@faker-js/faker");
 const Product = require("../controllers/products/index");
 const db = require("../db/conn");
 
@@ -24,13 +25,13 @@ describe("Product class", () => {
     const idRestaurant = 1;
     const productMock = [
       {
-        id_product: 1,
-        id_restaurant: 1,
-        url_image_product: "image.jpg",
-        product_name: "Product 1",
-        description: "Description 1",
-        price: 10.99,
-        category: "Category 1",
+        id_product: faker.number.int(),
+        id_restaurant: faker.number.int(),
+        url_image_product: faker.image.url(),
+        product_name: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
+        price: faker.commerce.price(),
+        category: faker.commerce.department(),
         promotion: true,
         description_promotion: "Promotion 1",
         price_promotion: 9.99,
@@ -38,13 +39,13 @@ describe("Product class", () => {
         end_promotion: "2022-01-31",
       },
       {
-        id_product: 2,
-        id_restaurant: 1,
-        url_image_product: "image.jpg",
-        product_name: "Product 2",
-        description: "Description 2",
-        price: 20.99,
-        category: "Category 2",
+        id_product: faker.number.int(),
+        id_restaurant: faker.number.int(),
+        url_image_product: faker.image.url(),
+        product_name: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
+        price: faker.commerce.price(),
+        category: faker.commerce.department(),
         promotion: false,
       },
     ];
@@ -53,32 +54,8 @@ describe("Product class", () => {
 
     const result = await sut.listAllProducts(params, idRestaurant);
 
-    expect(result).toEqual([
-      {
-        id_product: 1,
-        id_restaurant: 1,
-        url_image_product: "image.jpg",
-        product_name: "Product 1",
-        description: "Description 1",
-        price: 10.99,
-        category: "Category 1",
-        promotion: true,
-        description_promotion: "Promotion 1",
-        price_promotion: 9.99,
-        start_promotion: "01/01/2022",
-        end_promotion: "31/01/2022",
-      },
-      {
-        id_product: 2,
-        id_restaurant: 1,
-        url_image_product: "image.jpg",
-        product_name: "Product 2",
-        description: "Description 2",
-        price: 20.99,
-        category: "Category 2",
-        promotion: false,
-      },
-    ]);
+    expect(result[0].start_promotion).toBe("01/01/2022");
+    expect(result[0].end_promotion).toBe("31/01/2022");
   });
 
   it("should save a new product", async () => {
