@@ -3,6 +3,7 @@ const app = express();
 const db = require("./db/conn");
 const multer = require("multer");
 const path = require("path");
+require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -43,7 +44,7 @@ app.use("/public/product", require("./views/product"));
 
 db.sync()
   .then(() => {
-    app.listen(21092, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Aplicação UP 🚀");
     });
   })
