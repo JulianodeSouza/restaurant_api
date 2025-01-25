@@ -1,4 +1,5 @@
-const db = require("../../db/conn");
+import { db } from "../../infra/db/conn";
+
 const { QueryTypes } = require("sequelize");
 
 class Clients {

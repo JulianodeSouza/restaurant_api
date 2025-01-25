@@ -1,10 +1,10 @@
-const db = require("../../db/conn");
-const { QueryTypes } = require("sequelize");
-const RequestErrors = require("../errors/Request");
-const moment = require("moment/moment");
+import { QueryTypes } from "sequelize";
+import { db } from "../../infra/db/conn";
+import RequestErrors from "../../views/middlewares/errors/Request";
+import moment from "moment";
 
-class Product {
-  async listAllProducts(params, idRestaurant) {
+export default class ControllerProduct {
+  async listAllProducts(params: any, idRestaurant: number) {
     const sql = `select * from products p
     where p.id_restaurant = :id_restaurant and (p.product_name like :search or p.category like :search)`;
 
@@ -24,7 +24,7 @@ class Product {
     return productsConverted;
   }
 
-  async saveProduct(product) {
+  async saveProduct(product: any) {
     const newProduct = {
       url_image_product: product.url_image_product || null,
       id_restaurant: product.id_restaurant,
@@ -66,7 +66,7 @@ class Product {
     return { success: true };
   }
 
-  async removeProduct(idProduct, idRestaurant) {
+  async removeProduct(idProduct: any, idRestaurant: any) {
     const sqlSelect =
       "select * from products p where p.id_product = :id_product and p.id_restaurant = :id_restaurant";
 
@@ -96,7 +96,7 @@ class Product {
     return { success: true };
   }
 
-  async validateRegister(data) {
+  async validateRegister(data: any) {
     let errors = [];
 
     if (!data.product_name) {
@@ -165,8 +165,8 @@ class Product {
     }
   }
 
-  convertProduct(product) {
-    let productConverted = {};
+  private convertProduct(product: any) {
+    let productConverted: any = {};
 
     productConverted.id_product = product.id_product;
     productConverted.id_restaurant = product.id_restaurant;
@@ -191,5 +191,3 @@ class Product {
     return productConverted;
   }
 }
-
-module.exports = Product;

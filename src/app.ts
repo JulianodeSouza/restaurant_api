@@ -1,16 +1,16 @@
-const express = require("express");
+import { routes } from "./views";
+import { db } from "./infra/db/conn";
+import multer from "multer";
+import path from "path";
+import express, { Request } from "express";
 const app = express();
-const db = require("./db/conn");
-const multer = require("multer");
-const path = require("path");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(express.static("public"));
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (_req: Request, file: any, cb: any) {
     let folder = "";
 
     if (file.fieldname === "url_image_restaurant") {
@@ -21,13 +21,13 @@ const storage = multer.diskStorage({
 
     cb(null, `public/images/${folder}`);
   },
-  filename: function (req, file, cb) {
+  filename: function (_req: Request, file: any, cb: any) {
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 const upload = multer({
   storage: storage,
-  fileFilter: (req, file, cb) => {
+  fileFilter: (_req: Request, file: any, cb: any) => {
     if (!file.originalname.match(/\.(jpg|png|jpeg|webp)$/)) {
       return cb(new Error("Insira apenas arquivos JPG, PNG, JPEG ou WEBP"));
     }
@@ -38,9 +38,7 @@ const upload = multer({
 
 app.use(upload.any());
 
-app.use("/public/client")
-app.use("/public/restaurant", require("./views/restaurant"));
-app.use("/public/product", require("./views/product"));
+app.use("/", routes);
 
 db.sync()
   .then(() => {
@@ -48,7 +46,7 @@ db.sync()
       console.log("Aplicação UP 🚀");
     });
   })
-  .catch((e) => {
+  .catch((e: Error) => {
     console.log(e);
     throw new Error("Não foi possível realizar a conexão com o banco de dados");
   });

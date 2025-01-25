@@ -1,5 +1,5 @@
-const readSync = require("readline-sync");
-const { execSync } = require("child_process");
+import * as readSync from "readline-sync";
+import { execSync } from "child_process";
 
 const migrationName = readSync.question("Write migration name:");
 

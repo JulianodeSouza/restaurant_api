@@ -1,7 +1,8 @@
-const db = require("../../db/conn");
-const { QueryTypes } = require("sequelize");
-const RequestErrors = require("../errors/Request");
-class Restaurant {
+import { QueryTypes } from "sequelize";
+import { db } from "../../infra/db/conn";
+import RequestErrors from "../../views/middlewares/errors/Request";
+
+export default class ControllerRestaurant {
   constructor() {}
 
   async listAllRestaurants() {
@@ -18,7 +19,7 @@ class Restaurant {
     return restaurants;
   }
 
-  async listRestaurant(id_restaurant) {
+  async listRestaurant(id_restaurant: number) {
     const sql = `select * from restaurants r where r.id_restaurant = :idRestaurant limit 1`;
 
     const restaurant = await db.query(sql, {
@@ -35,7 +36,7 @@ class Restaurant {
     return restaurant;
   }
 
-  async register(restaurant) {
+  async register(restaurant: any) {
     await this.validateRegister(restaurant);
 
     const sql = `insert into restaurants (url_image_restaurant, restaurant_name, street, neighborhood, number, city, zipcode) 
@@ -57,7 +58,7 @@ class Restaurant {
     return { success: true };
   }
 
-  async update(id_restaurant, restaurantObj) {
+  async update(id_restaurant: any, restaurantObj: any) {
     const restaurant = await db.query(
       "select * from restaurants where id_restaurant = :idRestaurant",
       {
@@ -93,7 +94,7 @@ class Restaurant {
     return { success: true };
   }
 
-  async remove(id_restaurant) {
+  async remove(id_restaurant: any) {
     const sql = `delete from restaurants r where  r.id_restaurant = :idRestaurant`;
 
     await db.query(sql, {
@@ -106,7 +107,7 @@ class Restaurant {
     return { success: true };
   }
 
-  async validateRegister(data) {
+  async validateRegister(data: any) {
     let errors = [];
 
     if (!data.restaurant_name) {
@@ -163,5 +164,3 @@ class Restaurant {
     }
   }
 }
-
-module.exports = Restaurant;
