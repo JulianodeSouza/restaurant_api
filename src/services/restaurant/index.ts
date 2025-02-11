@@ -1,8 +1,8 @@
 import { QueryTypes } from "sequelize";
-import { db } from "../../infra/db/conn";
-import RequestErrors from "../../views/middlewares/errors/Request";
+import { db } from "@/infra/models";
+import RequestErrors from "@/api/middlewares/errors/Request";
 
-export default class ControllerRestaurant {
+export default class ServiceRestaurant {
   constructor() {}
 
   async listAllRestaurants() {

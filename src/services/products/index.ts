@@ -1,9 +1,9 @@
 import { QueryTypes } from "sequelize";
-import { db } from "../../infra/db/conn";
-import RequestErrors from "../../views/middlewares/errors/Request";
+import { db } from "@/infra/models";
+import RequestErrors from "@/api/middlewares/errors/Request";
 import moment from "moment";
 
-export default class ControllerProduct {
+export default class ServiceProduct {
   async listAllProducts(params: any, idRestaurant: number) {
     const sql = `select * from products p
     where p.id_restaurant = :id_restaurant and (p.product_name like :search or p.category like :search)`;

@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { handleException } from "../../utils";
-import ControllerRestaurant from "../../controllers/restaurant";
+import { handleException } from "../../../utils";
+import ServiceRestaurant from "../../../services/restaurant";
 
 export async function getAllRestaurants(_req: Request, _res: Response) {
   try {
-    const serviceRestaurant = new ControllerRestaurant();
+    const serviceRestaurant = new ServiceRestaurant();
     const restaurants = await serviceRestaurant.listAllRestaurants();
 
     _res.json(restaurants);
@@ -17,7 +17,7 @@ export async function getRestaurantById(_req: Request, _res: Response) {
   try {
     const idRestaurant = Number(_req.params.id);
 
-    const serviceRestaurant = new ControllerRestaurant();
+    const serviceRestaurant = new ServiceRestaurant();
     const restaurant = await serviceRestaurant.listRestaurant(idRestaurant);
 
     _res.json(restaurant);
@@ -28,7 +28,7 @@ export async function getRestaurantById(_req: Request, _res: Response) {
 
 export async function registerRestaurant(_req: Request, _res: Response) {
   try {
-    const serviceRestaurant = new ControllerRestaurant();
+    const serviceRestaurant = new ServiceRestaurant();
     const data = _req.body;
 
     if (Array.isArray(_req.files) && _req.files.length > 0) {
@@ -48,7 +48,7 @@ export async function updateRegisterOfRestaurant(
   _res: Response
 ) {
   try {
-    const serviceRestaurant = new ControllerRestaurant();
+    const serviceRestaurant = new ServiceRestaurant();
     const id_restaurant = Number(_req.params.id);
     const restaurant = _req.body;
 
@@ -62,7 +62,7 @@ export async function updateRegisterOfRestaurant(
 export async function deleteRestaurant(_req: Request, _res: Response) {
   try {
     const idRestaurant = _req.params.id;
-    const serviceRestaurant = new ControllerRestaurant();
+    const serviceRestaurant = new ServiceRestaurant();
 
     const result = await serviceRestaurant.remove(idRestaurant);
 

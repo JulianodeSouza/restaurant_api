@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "module": "commonjs",
     "outDir": "./dist",
@@ -8,8 +9,15 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src/**/*.ts", "src/infra/config/config.js", "src/controllers/clients/index.js"],
+  "include": [
+    "src/**/*.ts",
+    "src/infra/config/config.js",
+    "src/services/clients/index.js"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,8 +1,9 @@
-import { routes } from "./views";
-import { db } from "./infra/db/conn";
+import { routes } from "./api/routes";
+import { db } from "./infra/models";
 import multer from "multer";
 import path from "path";
 import express, { Request } from "express";
+import RestaurantErrors from "./api/middlewares/errors/RestaurantErrors";
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -48,5 +49,5 @@ db.sync()
   })
   .catch((e: Error) => {
     console.log(e);
-    throw new Error("Não foi possível realizar a conexão com o banco de dados");
+    throw new RestaurantErrors("Não foi possível realizar a conexão com o banco de dados");
   });
