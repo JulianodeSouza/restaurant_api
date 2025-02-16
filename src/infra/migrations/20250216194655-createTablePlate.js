@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("products", {
-      id_product: {
+    await queryInterface.createTable("plates", {
+      id_plate: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -59,10 +59,14 @@ module.exports = {
         type: Sequelize.FLOAT,
         defaultValue: null,
       },
+      active: {
+        type: Sequelize.BOOLEAN,
+      }
     });
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("products");
-  },
+  async down(queryInterface,) {
+    await queryInterface.dropTable("plates");
+
+  }
 };

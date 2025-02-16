@@ -2,7 +2,7 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import RestaurantEntity from "./restaurant";
 const sequelize = new Sequelize();
 
-export default class ProductsEntity extends Model {
+export default class PlatesEntity extends Model {
   declare idProduct: number;
   declare idRestaurant: number;
   declare urlImageProduct: string;
@@ -15,9 +15,10 @@ export default class ProductsEntity extends Model {
   declare startPromotion: Date;
   declare endPromotion: Date;
   declare pricePromotion: number;
+  declare active: boolean;
 }
 
-ProductsEntity.init(
+PlatesEntity.init(
   {
     idProduct: {
       type: DataTypes.INTEGER,
@@ -82,14 +83,17 @@ ProductsEntity.init(
       defaultValue: null,
       field: "price_promotion",
     },
+    active: {
+      type: DataTypes.BOOLEAN,
+    },
   },
   {
     sequelize,
-    tableName: "product",
+    tableName: "plates",
   }
 );
 
-ProductsEntity.belongsTo(RestaurantEntity, {
+PlatesEntity.belongsTo(RestaurantEntity, {
   foreignKey: "id_restaurant",
   as: "restaurant",
 });

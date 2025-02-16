@@ -10,7 +10,7 @@
     "start": "tsx watch src/app.ts",
     "create-db": "npx sequelize-cli db:create",
     "migrations": "npx sequelize-cli db:migrate",
-    "migration-generate": "ts-node src/scripts/ask-name-migrations.js",
+    "migration:generate": "ts-node src/infra/scripts/ask-name-migrations.ts",
     "migration-undo": "npx sequelize-cli db:migrate:undo"
   },
   "dependencies": {

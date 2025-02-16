@@ -1,5 +1,5 @@
 import { Model, Sequelize } from "sequelize";
-import ProductsEntity from "./product";
+import PlatesEntity from "./plates";
 const { DataTypes } = require("sequelize");
 const sequelize = new Sequelize();
 
@@ -59,4 +59,4 @@ RestaurantEntity.init(
   }
 );
 
-RestaurantEntity.hasMany(ProductsEntity);
+RestaurantEntity.hasMany(PlatesEntity);
