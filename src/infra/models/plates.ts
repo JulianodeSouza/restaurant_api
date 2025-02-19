@@ -85,6 +85,7 @@ PlatesEntity.init(
     },
     active: {
       type: DataTypes.BOOLEAN,
+      defaultValue: true,
     },
   },
   {

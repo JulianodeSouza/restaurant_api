@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
-import { handleException } from "../../../utils";
-import ServiceRestaurant from "../../../services/restaurant";
+import { handleException } from "@/utils";
+import ServiceRestaurant from "@/services/restaurant";
+import ServiceRegisterRestaurant from "@/services/restaurant/register";
+import ServiceUpdateRestaurant from "@/services/restaurant/update";
+import ServiceRemoveRestaurant from "@/services/restaurant/remove";
 
 export async function getAllRestaurants(_req: Request, _res: Response) {
   try {
@@ -28,14 +31,13 @@ export async function getRestaurantById(_req: Request, _res: Response) {
 
 export async function registerRestaurant(_req: Request, _res: Response) {
   try {
-    const serviceRestaurant = new ServiceRestaurant();
     const data = _req.body;
 
     if (Array.isArray(_req.files) && _req.files.length > 0) {
-      data.url_image_restaurant = _req.files[0].filename;
+      data.urlImageRestaurant = _req.files[0].filename;
     }
-
-    const result = await serviceRestaurant.register(data);
+    const serviceRegisterRestaurant = new ServiceRegisterRestaurant();
+    const result = await serviceRegisterRestaurant.register(data);
 
     _res.json(result);
   } catch (e) {
@@ -48,11 +50,15 @@ export async function updateRegisterOfRestaurant(
   _res: Response
 ) {
   try {
-    const serviceRestaurant = new ServiceRestaurant();
-    const id_restaurant = Number(_req.params.id);
+    const idRestaurant = Number(_req.params.id);
     const restaurant = _req.body;
 
-    const result = await serviceRestaurant.update(id_restaurant, restaurant);
+    const serviceUpdateRestaurant = new ServiceUpdateRestaurant();
+    const result = await serviceUpdateRestaurant.update(
+      idRestaurant,
+      restaurant
+    );
+
     _res.json(result);
   } catch (e) {
     handleException(_res, e);
@@ -61,10 +67,10 @@ export async function updateRegisterOfRestaurant(
 
 export async function deleteRestaurant(_req: Request, _res: Response) {
   try {
-    const idRestaurant = _req.params.id;
-    const serviceRestaurant = new ServiceRestaurant();
+    const idRestaurant = Number(_req.params.id);
 
-    const result = await serviceRestaurant.remove(idRestaurant);
+    const serviceRemoveRestaurant = new ServiceRemoveRestaurant();
+    const result = await serviceRemoveRestaurant.remove(idRestaurant);
 
     _res.json(result);
   } catch (e) {

@@ -2,7 +2,7 @@ import PlatesEntity from "@/infra/models/plates";
 import RepositoryPlates from "@/infra/repository/plates";
 import { Op } from "sequelize";
 
-export default class ProviderProducts {
+export default class ProviderPlates {
   async getAllPlates(
     idRestaurant: number,
     search: any

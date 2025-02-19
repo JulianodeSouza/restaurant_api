@@ -37,6 +37,9 @@ module.exports = {
         type: Sequelize.STRING,
         require: true,
       },
+      active: {
+        type: Sequelize.BOOLEAN,
+      }
     });
   },
 

@@ -12,6 +12,7 @@ export default class RestaurantEntity extends Model {
   declare number: string;
   declare zipcode: string;
   declare city: string;
+  declare active: boolean;
 }
 
 RestaurantEntity.init(
@@ -51,6 +52,11 @@ RestaurantEntity.init(
     city: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
     },
   },
   {
